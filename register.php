@@ -7,21 +7,19 @@ $dbname = "store_starcraft";
 
 $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 
-// Verifica la connessione
+
 if ($conn->connect_error) {
     die("Connessione al database fallita: " . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
-    // Ottieni i dati dal form
     $email = htmlspecialchars($_POST["email"]);
     $username = htmlspecialchars($_POST["username"]);
     $password = htmlspecialchars($_POST["password"]);
     
-    // Hash della password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
-    // Query per inserire l'utente
+
     $stmt = $conn->prepare("INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, 'Non VIP')");
     $stmt->bind_param("sss", $email, $username, $hashedPassword);
     
