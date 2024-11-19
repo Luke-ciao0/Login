@@ -1,7 +1,7 @@
 <?php
-session_start(); // Avvia la sessione
+session_start();
 
-$message = ""; // Variabile per messaggi di errore/successo
+$message = "";
 
 // Connessione al database
 $servername = "localhost";
@@ -11,18 +11,17 @@ $dbname = "dbname";
 
 $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 
-// Verifica la connessione
+
 if ($conn->connect_error) {
     die("Connessione al database fallita: " . $conn->connect_error);
 }
 
 // Elaborazione del form di login
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
-    // Ottieni i dati dal form
     $username = htmlspecialchars($_POST["username"]);
     $password = htmlspecialchars($_POST["password"]);
 
-    // Query per verificare l'utente
+
     $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -30,34 +29,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
 
     // Verifica se l'utente esiste
     if ($stmt->num_rows > 0) {
-        // Leggi i risultati della query
         $stmt->bind_result($userId, $hashedPassword, $role);
         $stmt->fetch();
 
-        // Verifica la password con password_verify
+        // Maggiore sicurezza
         if (password_verify($password, $hashedPassword)) {
-            // Login riuscito, imposta la sessione
             $_SESSION["user_id"] = $userId;
             $_SESSION["username"] = $username;
             $_SESSION["role"] = $role;
 
-            // Reindirizza a store.php
-            header("Location: store.php");
-            exit(); // Assicurati che il codice si fermi qui dopo il reindirizzamento
+            
+            header("Location: store.php"); // Si puo' mettere quello che si vuole
+            exit();
         } else {
-            // Password errata
             $message = "Password errata. Riprova.";
         }
     } else {
-        // Utente non trovato
         $message = "Nome utente non trovato.";
     }
 
-    // Chiudi lo statement
     $stmt->close();
 }
 
-// Chiudi la connessione
+
 $conn->close();
 ?>
 
