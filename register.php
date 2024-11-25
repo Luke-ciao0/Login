@@ -3,7 +3,7 @@
 $servername = "localhost";
 $usernameDB = "root";
 $passwordDB = "";
-$dbname = "store_starcraft";
+$dbname = "dbname";
 
 $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 
