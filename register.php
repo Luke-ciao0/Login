@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
 
-    $stmt = $conn->prepare("INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, 'Non VIP')");
+    $stmt = $conn->prepare("INSERT INTO users (email, username, password, role) VALUES (?, ?, Utente, 'Free')");
     $stmt->bind_param("sss", $email, $username, $hashedPassword);
     
     if ($stmt->execute()) {
