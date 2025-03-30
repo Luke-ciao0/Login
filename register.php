@@ -156,10 +156,4 @@ $conn->close();
 </div>
 
 </body>
-<script>
-        <?php if (!empty($message)) : ?>
-            // Passa il messaggio PHP alla console JavaScript
-            console.log("<?php echo $message; ?>");
-        <?php endif; ?>
-    </script>
 </html>
