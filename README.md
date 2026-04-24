@@ -23,6 +23,5 @@ Un semplice sistema di autenticazione sviluppato in **PHP** con backend in **MyS
 
 Se vuoi contattarmi per collaborazioni o domande:
 
-- Email: lukeskywalker3763@gmail.com
 - Telegram: @Lunaticooh
 - GitHub: Luke-ciao0
